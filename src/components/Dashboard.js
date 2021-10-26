@@ -14,7 +14,7 @@ function Dashboard(props) {
 }
 function mapStateToProps({ tweets }){
     return {
-        "tweetIds": Object.keys(tweets).sort((a,b)=> tweets[b].timestamp-tweets[a].timestamp)
+        "tweetIds": tweets !=null ?Object.keys(tweets).sort((a,b)=> tweets[b].timestamp-tweets[a].timestamp) : null
     }
 }
 export default connect(mapStateToProps)(Dashboard)

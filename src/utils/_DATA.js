@@ -255,7 +255,7 @@ export function _saveTweet ({ text, author, replyingTo }) {
       author,
       replyingTo
     })
-
+    
     setTimeout(() => {
       tweets = {
         ...tweets,

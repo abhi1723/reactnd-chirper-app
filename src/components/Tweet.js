@@ -8,6 +8,8 @@ import { TiHeartFullOutline } from "react-icons/ti";
 import { TiHeartOutline } from "react-icons/ti";
 // import { saveLikeToggle } from "../utils/api";
 import { saveLikeToggleThunks } from "../actions/shared";
+import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 function Tweet(props) {
     const { tweet, authedUser } = props;
     const { dispatch } = props;
@@ -32,12 +34,13 @@ function Tweet(props) {
     }
     const  toParent = (e, id) => {
       e.preventDefault()
+      props.history.push(`/tweet/${id}`);
       // todo: Redirect to parent Tweet.
     }
   
     return (
       
-        <div className ="tweet">
+        <Link  to = {`/tweet/${id}`} className ="tweet">
           <img
           src={avatar}
           alt={`Avatar of ${name}`}
@@ -48,7 +51,7 @@ function Tweet(props) {
             <span>{name}</span>
             <div>{formatDate(timestamp)}</div>
             {parent && (
-              <button className='replying-to' onClick={(e) => this.toParent(e, parent.id)}>
+              <button className='replying-to' onClick={(e) => toParent(e, parent.id)}>
                 Replying to @{parent.author}
               </button>
             )}
@@ -65,7 +68,7 @@ function Tweet(props) {
             <span>{likes !== 0 && likes}</span>
           </div>
         </div>
-        </div>
+        </Link>
     )
 }
 function mapStateToProps({ users, tweets, authedUser }, { id }) {
@@ -76,4 +79,4 @@ function mapStateToProps({ users, tweets, authedUser }, { id }) {
         "authedUser": authedUser
     }
 }
-export default connect(mapStateToProps)(Tweet)
+export default withRouter(connect(mapStateToProps)(Tweet))
